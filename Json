@@ -1,0 +1,16 @@
+pipeline {
+agent any
+   stages {
+    stage('gitpull') {
+        steps {
+            git branch: 'main', url: 'https://github.com/ravidexter/net-core.git'
+ }
+}
+stage('built') {
+        steps {
+            bat 'dotnet publish --output "c:\\temp\\CoreAppWeb"'
+ }
+}
+  stage('deploy') {
+        steps {
+            bat 'xcopy "c:\\temp\\CoreAppWeb" "C:\\inetpub\\wwwroot" /c /d /e /h /i /k /q /r /s /x /y'
